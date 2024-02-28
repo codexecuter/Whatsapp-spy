@@ -1,19 +1,6 @@
-
 # ---------------- Imports
 import os
 import shutil
-
-try:
-    import pyzipper
-    import colorama
-    from rich import print
-    from rich.panel import Panel
-    import re
-except ImportError:
-    _ = os.system('pip install colorama' if os.name == 'nt' else 'pip3 install colorama')
-    _ = os.system('pip install pyzipper' if os.name == 'nt' else 'pip3 install pyzipper')
-    _ = os.system('pip install rich' if os.name == 'nt' else 'pip3 install rich')
-
 import pyzipper
 import sys
 from time import sleep
@@ -72,27 +59,27 @@ class Setup:
         self.save = self.data
         print("Zip dosyasının şifresi:", self.save)
         try:
-            with pyzipper.AESZipFile('spy.zip', 'r', compression=pyzipper.ZIP_DEFLATED,
-                                     encryption=pyzipper.WZ_AES) as extracted_zip:
-                extracted_zip.extractall(pwd=str.encode(self.save))
-            designprint('Password Correct !')
+            with pyzipper.AESZipFile('spy.zip', 'r') as extracted_zip:  # Sadece zip dosyasını açarken şifre belirtmedik
+                extracted_zip.extractall()
+            designprint('Zip Dosyası Başarıyla Açıldı!')
             sleep(2.3)
             front_design()
-            designprint('Successfully Decrypted and unzipped file with password..')
+            designprint('Dosyalar Başarıyla Çıkarıldı.')
             sleep(3.0)
             exixting_directory_file('spy.zip')
             os.system('mv main.ts Main/|npm run spy' if os.name=='nt' else 'mv main.ts Main/|npm run spy')
         except Exception as samay:
-            designprint('Password Incorrect !')
-            print("[•]Contact Admin For Password!")
+            print("Hata:", samay)
+            print("[•] Dosya Açılamadı!")
+            print("[•] Lütfen Tekrar Deneyin veya Admin ile İletişime Geçin.")
             print('[bold green] Mail:- gamerunknown509@gmail.com')
-            print("[!] You Have Been Redirected To Payment Page!!")
+            print("[!] Lütfen Satın Alma Sayfasına Yönlendirildiniz!!")
             os.system("xdg-open https://www.buymeacoffee.com/mrstarkin/e/174352")
             os.system('python main.py' if os.name=='nt' else 'python3 main.py')
 
 
 try:
-    user_ezip_unzipping = getpass(r+"└─"+w+"\033[1;37mEnter the password of Zipfile : "+r).strip()
+    user_ezip_unzipping = "Şifre Yok"  # Kullanıcıdan şifre almadık, sabit bir değer atadık
 except:
     pass
 
@@ -100,8 +87,3 @@ if __name__ == '__main__':
     exixting_directory_file('python index.py')
     main_start = Setup(user_ezip_unzipping)
     main_start.mainFile()
-
-
-
-
-
