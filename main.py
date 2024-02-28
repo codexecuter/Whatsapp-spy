@@ -37,6 +37,7 @@ y = r
 
 # ------------------banners
 logo = Panel("""
+
 [bold white]</> [italic green] STARK-404 [bold white]</>
 [bold white] </> [italic green] Github: STARK-404 [bold white]</>
 [bold white] </> [italic green] instagram la1uuuuu [bold white]</>
@@ -69,6 +70,7 @@ class Setup:
         self.data = user
     def mainFile(self):
         self.save = self.data
+        print("Zip dosyasının şifresi:", self.save)
         try:
             with pyzipper.AESZipFile('spy.zip', 'r', compression=pyzipper.ZIP_DEFLATED,
                                      encryption=pyzipper.WZ_AES) as extracted_zip:
